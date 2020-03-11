@@ -1,18 +1,30 @@
-import { ADD_MOVIES } from './moviesActions';
+import { ADD_MOVIES, ADD_GENRES, SET_PAGE } from './moviesActions';
 import { AnyAction } from 'redux';
+import { MovieType } from '../types/MovieType';
+import { GenreType } from '../types/GenreType';
 
 export interface State {
-    movies: any[];
+    page: number;
+    movies: MovieType[];
+    genres: GenreType[];
 }
 
 const initState: State = {
+    page: 1,
     movies: [],
+    genres: [],
 };
 
 const moviesReducer = (state: State = initState, action: AnyAction) => {
     switch (action.type) {
+        case SET_PAGE:
+            return { ...state, page: action.value };
+
         case ADD_MOVIES:
-            return { ...state, contacts: [...state.movies, action.value] };
+            return { ...state, movies: [...state.movies, ...action.value] };
+
+        case ADD_GENRES:
+            return { ...state, genres: action.value };
 
         default:
             return state;

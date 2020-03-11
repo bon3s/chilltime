@@ -6,42 +6,59 @@ import {
     MovieCreationOutlined,
     ChatBubbleOutline,
 } from '@material-ui/icons';
+import { MovieType } from '../../types/MovieType';
 
-interface Props extends RouteProps {}
+interface Props extends RouteProps {
+    movie: MovieType;
+}
 
 const MovieItem = (props: Props) => {
+    const assetsHandler = () => {
+        return 'https://image.tmdb.org/t/p/w500/' + props.movie.posterPath;
+    };
+
+    const addZeroes = (num: number) => {
+        return num.toLocaleString('en', {
+            useGrouping: false,
+            minimumFractionDigits: 1,
+        });
+    };
+
     return (
         <MovieItemStyles>
             <div className="movie__rating">
                 <StarBorder
                     style={{ color: '#fff', width: '24px', height: '24px' }}
                 />
-                <p>7.8</p>
+                <p>{addZeroes(props.movie.voteAvg)}</p>
             </div>
             <div className="movie__genre">
                 <MovieCreationOutlined
                     style={{ color: '#fff', width: '24px', height: '24px' }}
                 />
-                <p>Action</p>
+                <ul>
+                    {props.movie.genres.map((item, index) => (
+                        <li key={`genre ${index}`}>
+                            <p>{item}</p>
+                        </li>
+                    ))}
+                </ul>
             </div>
             <div className="movie__language">
                 <ChatBubbleOutline
                     style={{ color: '#fff', width: '24px', height: '24px' }}
                 />
-                <p>English</p>
+                <p>{props.movie.language}</p>
             </div>
             <div className="movie__poster">
                 <img
-                    src="https://source.unsplash.com/featured/?movie,poster"
-                    alt="movie poster"
+                    src={assetsHandler()}
+                    alt={props.movie.title + ' poster'}
                 />
             </div>
             <div className="movie__info">
-                <h2>Ant-Man (2019)</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing
-                    elit.sadasdsafdsdgfdsgsdfgsdfhsdvwerfrefwerferf
-                </p>
+                <h2>{props.movie.title}</h2>
+                <p>{props.movie.overview}</p>
             </div>
         </MovieItemStyles>
     );

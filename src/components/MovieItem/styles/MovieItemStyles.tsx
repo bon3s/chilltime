@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { theme } from '../../Theme/theme';
-import IconStar from '../../../assets/img/icon_star.svg';
 const MovieItemStyles = styled.a`
     && {
         min-height: 300px;
@@ -20,7 +19,7 @@ const MovieItemStyles = styled.a`
             &__rating {
                 position: absolute;
                 top: 10px;
-                right: 10px;
+                right: 20px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -28,6 +27,10 @@ const MovieItemStyles = styled.a`
                 border-radius: 50%;
                 z-index: 7;
                 overflow: visible;
+                svg {
+                    opacity: 0;
+                    transition: opacity 0.4s ease;
+                }
                 p {
                     font-family: ${theme.fonts.fontRegular};
                     font-size: 12px;
@@ -44,25 +47,37 @@ const MovieItemStyles = styled.a`
             &__genre {
                 position: absolute;
                 top: 10px;
-                left: 10px;
+                left: 20px;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: center;
                 border-radius: 50%;
                 z-index: 7;
                 overflow: visible;
-                p {
-                    font-family: ${theme.fonts.fontRegular};
-                    font-size: 12px;
-                    color: ${theme.colors.white};
-                    text-align: center;
-                    margin: 5px 0 0;
-                    padding: 0;
+                svg {
                     opacity: 0;
+                    transition: opacity 0.4s ease;
+                }
+                ul {
+                    padding: 0;
+                    list-style-type: none;
                     transform: scaleY(0);
                     transform-origin: top;
                     transition: all 0.5s ease;
+                    opacity: 0;
+                    li {
+                        padding: 0;
+                        margin: 0;
+                        p {
+                            font-family: ${theme.fonts.fontRegular};
+                            font-size: 12px;
+                            color: ${theme.colors.white};
+                            text-align: left;
+                            margin: 3px 0 0;
+                            padding: 0;
+                        }
+                    }
                 }
             }
             &__language {
@@ -77,6 +92,10 @@ const MovieItemStyles = styled.a`
                 border-radius: 50%;
                 z-index: 7;
                 overflow: visible;
+                svg {
+                    opacity: 0;
+                    transition: opacity 0.4s ease;
+                }
                 p {
                     font-family: ${theme.fonts.fontRegular};
                     font-size: 12px;
@@ -88,6 +107,7 @@ const MovieItemStyles = styled.a`
                     transform: scaleY(0);
                     transform-origin: top;
                     transition: all 0.5s ease;
+                    text-transform: uppercase;
                 }
             }
             &__poster {
@@ -121,13 +141,17 @@ const MovieItemStyles = styled.a`
                 h2 {
                     font-family: ${theme.fonts.fontLight};
                     color: ${theme.colors.white};
-                    font-size: 28px;
+                    font-size: 24px;
                     line-height: 33px;
                     font-weight: 300;
                     padding: 0;
                     max-width: 100%;
-                    word-break: break-all;
+                    word-break: break-word;
                     margin: 0 0 15px 0;
+                    max-lines: 2;
+                    text-overflow: ellipsis;
+                    line-clamp: 2;
+                    overflow: hidden;
                 }
                 p {
                     font-family: ${theme.fonts.fontLight};
@@ -137,9 +161,12 @@ const MovieItemStyles = styled.a`
                     line-height: 26px;
                     padding: 0;
                     max-width: 100%;
-                    word-break: break-all;
+                    word-break: break-word;
                     transition: all 0.5s ease;
                     max-height: 0;
+                    max-lines: 4;
+                    text-overflow: ellipsis;
+                    line-clamp: 4;
                     overflow: hidden;
                 }
             }
@@ -157,8 +184,8 @@ const MovieItemStyles = styled.a`
             background: linear-gradient(
                 to bottom,
                 rgba(0, 0, 0, 0) 0%,
-                rgba(0, 0, 0, 0.4) 67%,
-                rgba(0, 0, 0, 0.4) 100%
+                rgba(0, 0, 0, 0.5) 67%,
+                rgba(0, 0, 0, 0.5) 100%
             );
             transition: all 0.5s ease;
         }
@@ -175,11 +202,11 @@ const MovieItemStyles = styled.a`
             opacity: 0;
             background: linear-gradient(
                 to bottom,
-                rgba(0, 0, 0, 0.55) 0%,
-                rgba(0, 0, 0, 0.45) 61%,
-                rgba(0, 0, 0, 0.45) 62%,
-                rgba(0, 0, 0, 0.45) 77%,
-                rgba(0, 0, 0, 0.45) 100%
+                rgba(0, 0, 0, 0.75) 0%,
+                rgba(0, 0, 0, 0.65) 61%,
+                rgba(0, 0, 0, 0.65) 62%,
+                rgba(0, 0, 0, 0.65) 77%,
+                rgba(0, 0, 0, 0.65) 100%
             );
             transition: all 0.5s ease;
             z-index: 3;
@@ -192,18 +219,27 @@ const MovieItemStyles = styled.a`
             transition: all 1s ease;
             .movie {
                 &__rating {
+                    svg {
+                        opacity: 1;
+                    }
                     p {
                         opacity: 1;
                         transform: scaleY(1);
                     }
                 }
                 &__genre {
-                    p {
+                    svg {
+                        opacity: 1;
+                    }
+                    ul {
                         opacity: 1;
                         transform: scaleY(1);
                     }
                 }
                 &__language {
+                    svg {
+                        opacity: 1;
+                    }
                     p {
                         opacity: 1;
                         transform: scaleY(1);
@@ -211,7 +247,7 @@ const MovieItemStyles = styled.a`
                 }
                 &__info {
                     p {
-                        max-height: 150px;
+                        max-height: 105px;
                     }
                 }
             }

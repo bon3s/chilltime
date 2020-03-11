@@ -1,5 +1,5 @@
-import { State as ContactState } from './moviesReducer';
+import { State as MovieState } from './moviesReducer';
 
 export default interface AppState {
-    readonly contacts: ContactState;
+    readonly movies: MovieState;
 }

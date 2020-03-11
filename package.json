@@ -30,6 +30,7 @@
 		"redux": "^4.0.5",
 		"redux-devtools-extension": "^2.13.8",
 		"styled-components": "^5.0.1",
+		"ts-debounce": "^2.0.1",
 		"typescript": "^3.7.4",
 		"uuid": "^3.4.0"
 	},
