@@ -3,6 +3,7 @@ import REST, { URL } from '../api/REST';
 import config from '../config';
 import client from '../http/client';
 import { Genre } from './Genre';
+import { MovieDetails } from './MovieDetails';
 
 export enum ErrorType {
     Unknown,
@@ -19,6 +20,7 @@ export enum ErrorType {
 export interface Service {
     getPopularMovies(page: number): Promise<PopularMoviesReply>;
     getMovieGenres(): Promise<MovieGenresReply>;
+    getMovieDetails(id: number): Promise<MovieDetailsReply>;
 }
 
 export class PopularMoviesReply {
@@ -35,6 +37,21 @@ export class PopularMoviesReply {
     public data: Movie[];
     constructor(movieArray: Movie[]) {
         this.data = movieArray;
+    }
+}
+
+export class MovieDetailsReply {
+    public static fromJSON(maybe: any): MovieDetailsReply {
+        if (typeof maybe !== 'object' && maybe !== null) {
+            throw new Error('MovieDetailsReply should be an object');
+        }
+        const movieDetails: MovieDetails = maybe;
+
+        return new MovieDetailsReply(movieDetails);
+    }
+    public data: MovieDetails;
+    constructor(movieDetails: MovieDetails) {
+        this.data = movieDetails;
     }
 }
 

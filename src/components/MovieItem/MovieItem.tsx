@@ -7,16 +7,14 @@ import {
     ChatBubbleOutline,
 } from '@material-ui/icons';
 import { MovieType } from '../../types/MovieType';
+import { imageHandler } from '../imageHandler';
 
 interface Props extends RouteProps {
     movie: MovieType;
+    handleMovieClick: (id: number) => void;
 }
 
 const MovieItem = (props: Props) => {
-    const assetsHandler = () => {
-        return 'https://image.tmdb.org/t/p/w500/' + props.movie.posterPath;
-    };
-
     const addZeroes = (num: number) => {
         return num.toLocaleString('en', {
             useGrouping: false,
@@ -25,7 +23,7 @@ const MovieItem = (props: Props) => {
     };
 
     return (
-        <MovieItemStyles>
+        <MovieItemStyles onClick={() => props.handleMovieClick(props.movie.id)}>
             <div className="movie__rating">
                 <StarBorder
                     style={{ color: '#fff', width: '24px', height: '24px' }}
@@ -52,7 +50,7 @@ const MovieItem = (props: Props) => {
             </div>
             <div className="movie__poster">
                 <img
-                    src={assetsHandler()}
+                    src={imageHandler(props.movie.posterPath)}
                     alt={props.movie.title + ' poster'}
                 />
             </div>

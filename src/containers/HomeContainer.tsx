@@ -8,6 +8,7 @@ import { GenreType } from '../types/GenreType';
 import service from '../service/service';
 import { Dispatch } from 'redux';
 import { addMovies, setPage } from '../redux/moviesActions';
+import { setDetails } from '../redux/movieDetailsActions';
 
 interface Props extends RouterProps {
     movies: MovieType[];
@@ -17,6 +18,14 @@ interface Props extends RouterProps {
 }
 
 class HomeContainer extends Component<Props> {
+    handleMovieClick = (id: number) => {
+        service.getMovieDetails(id).then(res => {
+            this.props.dispatch(setDetails(res.data));
+        });
+
+        this.props.history.push('/' + id);
+    };
+
     public render() {
         const moviesWithGenres = () => {
             const { movies, genres } = this.props;
@@ -49,6 +58,7 @@ class HomeContainer extends Component<Props> {
         if (this.props.movies.length > 0) {
             return (
                 <HomeScreen
+                    handleMovieClick={this.handleMovieClick}
                     handleLoadMore={handleLoadMore}
                     movies={moviesWithGenres()}
                     history={this.props.history}

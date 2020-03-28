@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 import { theme } from '../../Theme/theme';
-const MovieItemStyles = styled.a`
+const MovieItemStyles = styled.button`
     && {
+        border: none;
+        outline: none;
+        background: transparent;
+        padding: 0;
+        margin: 0;
         min-height: 300px;
         background: #fff;
         position: relative;
@@ -14,6 +19,7 @@ const MovieItemStyles = styled.a`
         cursor: pointer;
         margin-bottom: 40px;
         overflow: hidden;
+        text-align: center;
         box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3);
         .movie {
             &__rating {
@@ -66,6 +72,7 @@ const MovieItemStyles = styled.a`
                     transform-origin: top;
                     transition: all 0.5s ease;
                     opacity: 0;
+                    max-width: 80%;
                     li {
                         padding: 0;
                         margin: 0;
@@ -144,6 +151,7 @@ const MovieItemStyles = styled.a`
                     font-size: 24px;
                     line-height: 33px;
                     font-weight: 300;
+                    text-align: left;
                     padding: 0;
                     max-width: 100%;
                     word-break: break-word;
@@ -163,6 +171,7 @@ const MovieItemStyles = styled.a`
                     max-width: 100%;
                     word-break: break-word;
                     transition: all 0.5s ease;
+                    text-align: left;
                     max-height: 0;
                     max-lines: 4;
                     text-overflow: ellipsis;
@@ -217,6 +226,11 @@ const MovieItemStyles = styled.a`
         &:active {
             text-decoration: none;
             transition: all 1s ease;
+            border: none;
+            outline: none;
+            background: transparent;
+            padding: 0;
+
             .movie {
                 &__rating {
                     svg {

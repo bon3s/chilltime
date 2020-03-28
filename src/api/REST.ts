@@ -5,6 +5,7 @@ import {
     Service,
     PopularMoviesReply,
     MovieGenresReply,
+    MovieDetailsReply,
 } from '../service/service';
 import config from '../config';
 
@@ -22,6 +23,10 @@ export class URL {
 
     public path(query: string): string {
         return this.url + 'movie/' + query;
+    }
+
+    public moviePath(id: number): string {
+        return this.url + 'movie/' + id;
     }
 
     public genresPath() {
@@ -66,6 +71,14 @@ class REST implements Service {
                 page,
         });
         return PopularMoviesReply.fromJSON(res.data.results);
+    }
+
+    public async getMovieDetails(id: number): Promise<MovieDetailsReply> {
+        const res = await this.request(this.getMovieDetails, {
+            method: 'GET',
+            url: this.url.moviePath(id) + this.url.apiKeyHandler(),
+        });
+        return MovieDetailsReply.fromJSON(res.data);
     }
 
     public async getMovieGenres(): Promise<MovieGenresReply> {
