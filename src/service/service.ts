@@ -46,8 +46,7 @@ export class MovieDetailsReply {
             throw new Error('MovieDetailsReply should be an object');
         }
         const movieDetails: MovieDetails = maybe;
-
-        return new MovieDetailsReply(movieDetails);
+        return new MovieDetailsReply(MovieDetails.fromJSON(movieDetails));
     }
     public data: MovieDetails;
     constructor(movieDetails: MovieDetails) {

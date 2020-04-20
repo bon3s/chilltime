@@ -16,20 +16,14 @@ interface Props extends RouterProps {
 const Router = (props: Props) => {
     return (
         <Switch>
-            <Route path="/" component={HomeContainer} exact />
-            {props.movies.map((item: MovieType) => {
-                return (
-                    <Route
-                        path={`/${item.id}`}
-                        render={() => (
-                            <MovieDetailsContainer
-                                history={props.history}
-                                movieDetails={props.movieDetails}
-                            />
-                        )}
-                    />
-                );
-            })}
+            <Route exact path="/" component={HomeContainer} />
+            <Route
+                exact
+                path="/movie/:id"
+                {...props}
+                component={MovieDetailsContainer}
+            />
+            />
             <Route path="/404" component={Error404Container} />
         </Switch>
     );

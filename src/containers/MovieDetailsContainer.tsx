@@ -1,26 +1,36 @@
 import React from 'react';
 import { Component } from 'react';
-import { RouterProps } from 'react-router';
-import DetailsScreen from '../screens/DetailsScreen/DetailsScreen';
+import { RouteComponentProps } from 'react-router';
+import MovieDetailsScreen from '../screens/DetailsScreen/MovieDetailsScreen';
 import { DetailsType } from '../types/DetailsType';
+import { connect } from 'react-redux';
+import AppState from '../redux/AppState';
+import service from '../service/service';
+import { Dispatch } from 'redux';
+import { setDetails } from '../redux/movieDetailsActions';
 
-interface Props extends RouterProps {
+export interface MatchParams {
+    id: string;
+}
+
+interface Props extends RouteComponentProps<MatchParams> {
     movieDetails: DetailsType;
+    dispatch: Dispatch;
 }
 
 class MovieDetailsContainer extends Component<Props> {
-    constructor(props: Props) {
-        super(props);
+    componentDidMount() {
+        service
+            .getMovieDetails(Number(this.props.match.params.id))
+            .then((res) => {
+                this.props.dispatch(setDetails(res.data));
+            });
     }
-
     render() {
-        return (
-            <DetailsScreen
-                history={this.props.history}
-                movieDetails={this.props.movieDetails}
-            />
-        );
+        return <MovieDetailsScreen movieDetails={this.props.movieDetails} />;
     }
 }
-
-export default MovieDetailsContainer;
+const mapStateToProps = (state: AppState) => ({
+    movieDetails: state.movieDetails.movieDetails,
+});
+export default connect(mapStateToProps)(MovieDetailsContainer);

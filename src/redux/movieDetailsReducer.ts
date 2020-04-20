@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { SET_DETAILS } from './movieDetailsActions';
+import { SET_DETAILS, RESET_DETAILS } from './movieDetailsActions';
 import { DetailsType } from '../types/DetailsType';
 
 export interface State {
@@ -25,6 +25,9 @@ const movieDetailsReducer = (state: State = initState, action: AnyAction) => {
     switch (action.type) {
         case SET_DETAILS:
             return { ...state, movieDetails: action.value };
+
+        case RESET_DETAILS:
+            return { ...state, movieDetails: initState.movieDetails };
 
         default:
             return state;

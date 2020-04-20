@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { RouterProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import Router from './router/MainRouter';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import service from './service/service';
@@ -7,21 +7,27 @@ import { store } from './store';
 import { addMovies, addGenres, setPage } from './redux/moviesActions';
 import AppState from './redux/AppState';
 import { connect } from 'react-redux';
-
-interface Props extends RouterProps {
+import { setError } from './redux/errorActions';
+interface Props extends RouteComponentProps {
     page: number;
+    error: boolean;
 }
 
 class App extends Component<Props> {
     componentDidMount() {
-        service.getMovieGenres().then(res => {
-            store.dispatch(addGenres(res.data));
-        });
+        if (!this.props.error) {
+            service.getMovieGenres().then((res) => {
+                store.dispatch(addGenres(res.data));
+            });
 
-        service.getPopularMovies(this.props.page).then(res => {
-            store.dispatch(setPage(this.props.page + 1));
-            store.dispatch(addMovies(res.data));
-        });
+            service.getPopularMovies(this.props.page).then((res) => {
+                store.dispatch(setPage(this.props.page + 1));
+                store.dispatch(addMovies(res.data));
+            });
+        } else {
+            store.dispatch(setError());
+            this.props.history.push('/');
+        }
     }
 
     render() {
@@ -36,6 +42,7 @@ class App extends Component<Props> {
 const mapStateToProps = (state: AppState) => {
     return {
         page: state.movies.page,
+        error: state.error.errorEvent,
     };
 };
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(withRouter(App));

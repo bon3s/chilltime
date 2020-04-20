@@ -12,11 +12,17 @@ export class Movie {
             throw new Error('popularity should be a number');
         }
 
-        if (typeof maybe.poster_path !== 'string') {
+        if (
+            typeof maybe.poster_path !== 'string' &&
+            maybe.poster_path !== null
+        ) {
             throw new Error('poster_path should be a string');
         }
 
-        if (typeof maybe.backdrop_path !== 'string') {
+        if (
+            typeof maybe.backdrop_path !== 'string' &&
+            maybe.backdrop_path !== null
+        ) {
             maybe.backdrop_path = maybe.poster_path;
         }
 
@@ -39,7 +45,6 @@ export class Movie {
         if (typeof maybe.overview !== 'string') {
             throw new Error('overview should be a string');
         }
-
         return new Movie(
             maybe.id,
             maybe.popularity,

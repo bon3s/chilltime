@@ -7,6 +7,7 @@ import reducer from './redux';
 const persistConfig = {
     key: 'root',
     storage,
+    blacklist: ['movies'],
 };
 
 const persistedReducer: Reducer = persistReducer(persistConfig, reducer);

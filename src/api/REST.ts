@@ -8,6 +8,8 @@ import {
     MovieDetailsReply,
 } from '../service/service';
 import config from '../config';
+import { store } from '../store';
+import { setError } from '../redux/errorActions';
 
 export class URL {
     private url: string;
@@ -96,10 +98,11 @@ class REST implements Service {
         return new Promise((resolve, reject) => {
             this.client
                 .request(req)
-                .then(resp => resolve(resp))
+                .then((resp) => resolve(resp))
                 .catch((err: AxiosError) => {
-                    console.log(err);
-                    reject(newServiceError(endpoint.name, err));
+                    console.log(newServiceError(endpoint.name, err));
+                    // should be handled in an error middleware later
+                    reject(store.dispatch(setError()));
                 });
         });
     }
@@ -112,24 +115,28 @@ const newServiceError = (ep: string, err: AxiosError): ServiceError => {
         const { data, status } = err.response;
 
         if (status === 401) {
-            return new ServiceError(ep, ErrorType.Unauthenticated);
+            return new ServiceError(
+                ep,
+                ErrorType.Unauthenticated,
+                'Please add your MovieAPI key.'
+            );
         }
 
-        if (status === 403) {
-            return new ServiceError(ep, ErrorType.PermissionDenied);
-        }
+        // if (status === 403) {
+        //     return new ServiceError(ep, ErrorType.PermissionDenied);
+        // }
 
         if (status === 404) {
-            return new ServiceError(ep, ErrorType.NotFound);
+            return new ServiceError(ep, ErrorType.NotFound, 'No movie found.');
         }
 
-        if (status === 408 || err.code === 'ECONNABORTED') {
-            return new ServiceError(ep, ErrorType.Timeout);
-        }
+        // if (status === 408 || err.code === 'ECONNABORTED') {
+        //     return new ServiceError(ep, ErrorType.Timeout);
+        // }
 
-        if (status >= 500) {
-            return new ServiceError(ep, ErrorType.Internal, data.message);
-        }
+        // if (status >= 500) {
+        //     return new ServiceError(ep, ErrorType.Internal, data.message);
+        // }
 
         return new ServiceError(ep, ErrorType.BadInput, data.message);
     } else if (err.request) {

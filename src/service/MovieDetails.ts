@@ -8,7 +8,7 @@ export class MovieDetails {
             throw new Error('id should be a number');
         }
 
-        if (typeof maybe.imdb_id !== 'string') {
+        if (typeof maybe.imdb_id !== 'string' && maybe.imdb_id !== null) {
             throw new Error('imdb_id should be a string');
         }
 
@@ -24,15 +24,21 @@ export class MovieDetails {
             throw new Error('release_date should be a string');
         }
 
-        if (typeof maybe.backdrop_path !== 'string') {
+        if (
+            typeof maybe.backdrop_path !== 'string' &&
+            maybe.backdrop_path !== null
+        ) {
             throw new Error('backdrop_path should be a string');
         }
 
-        if (typeof maybe.poster_path !== 'string') {
-            throw new Error('backdrop_path should be a string');
+        if (
+            typeof maybe.poster_path !== 'string' &&
+            maybe.poster_path !== null
+        ) {
+            throw new Error('poster_path should be a string');
         }
 
-        if (typeof maybe.overview !== 'string') {
+        if (typeof maybe.overview !== 'string' && maybe.overview !== null) {
             throw new Error('overview should be a string');
         }
 
@@ -40,7 +46,7 @@ export class MovieDetails {
             throw new Error('vote_number should be a number');
         }
 
-        if (typeof maybe.tagline !== 'string') {
+        if (typeof maybe.tagline !== 'string' && maybe.tagline !== null) {
             throw new Error('tagline should be a string');
         }
 

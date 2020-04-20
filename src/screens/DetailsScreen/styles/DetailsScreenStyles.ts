@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const DetailsScreenStyles = styled.div`
+export const MovieDetailsScreenStyles = styled.div`
     .details {
         &__head {
             background-size: cover;

@@ -3,8 +3,8 @@ export interface MovieType {
     popularity: number;
     title: string;
     language: string;
-    posterPath: string;
-    backdropPath: string;
+    posterPath: string | null;
+    backdropPath: string | null;
     genres: any[];
     voteAvg: number;
     overview: string;

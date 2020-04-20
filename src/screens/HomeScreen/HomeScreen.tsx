@@ -10,7 +10,6 @@ import { debounce } from 'ts-debounce';
 interface Props extends RouterProps {
     movies: MovieType[];
     handleLoadMore: () => void;
-    handleMovieClick: (id: number) => void;
 }
 
 const HomeScreen = (props: Props) => {
@@ -43,12 +42,7 @@ const HomeScreen = (props: Props) => {
                                         lg={3}
                                         md={6}
                                         xs={12}>
-                                        <MovieItem
-                                            handleMovieClick={
-                                                props.handleMovieClick
-                                            }
-                                            movie={item}
-                                        />
+                                        <MovieItem key={item.id} movie={item} />
                                     </Col>
                                 );
                             })

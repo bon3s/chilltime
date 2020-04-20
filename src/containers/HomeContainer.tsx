@@ -8,7 +8,7 @@ import { GenreType } from '../types/GenreType';
 import service from '../service/service';
 import { Dispatch } from 'redux';
 import { addMovies, setPage } from '../redux/moviesActions';
-import { setDetails } from '../redux/movieDetailsActions';
+import { resetDetails } from '../redux/movieDetailsActions';
 
 interface Props extends RouterProps {
     movies: MovieType[];
@@ -18,14 +18,9 @@ interface Props extends RouterProps {
 }
 
 class HomeContainer extends Component<Props> {
-    handleMovieClick = (id: number) => {
-        service.getMovieDetails(id).then(res => {
-            this.props.dispatch(setDetails(res.data));
-        });
-
-        this.props.history.push('/' + id);
-    };
-
+    componentDidMount() {
+        this.props.dispatch(resetDetails());
+    }
     public render() {
         const moviesWithGenres = () => {
             const { movies, genres } = this.props;
@@ -49,8 +44,7 @@ class HomeContainer extends Component<Props> {
 
         const handleLoadMore = () => {
             this.props.dispatch(setPage(this.props.page + 1));
-            console.log(this.props.page);
-            service.getPopularMovies(this.props.page).then(res => {
+            service.getPopularMovies(this.props.page).then((res) => {
                 this.props.dispatch(addMovies(res.data));
             });
         };
@@ -58,7 +52,6 @@ class HomeContainer extends Component<Props> {
         if (this.props.movies.length > 0) {
             return (
                 <HomeScreen
-                    handleMovieClick={this.handleMovieClick}
                     handleLoadMore={handleLoadMore}
                     movies={moviesWithGenres()}
                     history={this.props.history}

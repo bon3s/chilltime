@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { theme } from '../../Theme/theme';
-const MovieItemStyles = styled.button`
+
+const MovieItemStyles = styled.div`
     && {
         border: none;
         outline: none;
