@@ -57,7 +57,6 @@ export class ServiceError extends Error {
 class REST implements Service {
     public url: URL;
     private client: HTTPClient;
-
     constructor(httpClient: HTTPClient, url: URL) {
         this.client = httpClient;
         this.url = url;
@@ -100,9 +99,11 @@ class REST implements Service {
                 .request(req)
                 .then((resp) => resolve(resp))
                 .catch((err: AxiosError) => {
-                    console.log(newServiceError(endpoint.name, err));
-                    // should be handled in an error middleware later
-                    reject(store.dispatch(setError()));
+                    if (err.response) {
+                        if (err.response.status === 404) {
+                            window.location.href = window.location.origin;
+                        }
+                    }
                 });
         });
     }
@@ -110,42 +111,43 @@ class REST implements Service {
 
 export default REST;
 
-const newServiceError = (ep: string, err: AxiosError): ServiceError => {
-    if (err.response) {
-        const { data, status } = err.response;
+// const newServiceError = (ep: string, err: AxiosError): ServiceError => {
+//     if (err.response) {
+//         const { data, status } = err.response;
+//         if (status === 401) {
+//             // history.push('/');
+//             // return new ServiceError(
+//             //     ep,
+//             //     ErrorType.Unauthenticated,
+//             //     'Please add your MovieAPI key.'
+//             // );
+//         }
 
-        if (status === 401) {
-            return new ServiceError(
-                ep,
-                ErrorType.Unauthenticated,
-                'Please add your MovieAPI key.'
-            );
-        }
+//         // if (status === 403) {
+//         //     return new ServiceError(ep, ErrorType.PermissionDenied);
+//         // }
 
-        // if (status === 403) {
-        //     return new ServiceError(ep, ErrorType.PermissionDenied);
-        // }
+//         if (status === 404) {
+//             // history.push('/');
+//             // return new ServiceError(ep, ErrorType.NotFound, 'No movie found.');
+//         }
 
-        if (status === 404) {
-            return new ServiceError(ep, ErrorType.NotFound, 'No movie found.');
-        }
+//         // if (status === 408 || err.code === 'ECONNABORTED') {
+//         //     return new ServiceError(ep, ErrorType.Timeout);
+//         // }
 
-        // if (status === 408 || err.code === 'ECONNABORTED') {
-        //     return new ServiceError(ep, ErrorType.Timeout);
-        // }
+//         // if (status >= 500) {
+//         //     return new ServiceError(ep, ErrorType.Internal, data.message);
+//         // }
 
-        // if (status >= 500) {
-        //     return new ServiceError(ep, ErrorType.Internal, data.message);
-        // }
+//         return new ServiceError(ep, ErrorType.BadInput, data.message);
+//     } else if (err.request) {
+//         if (err.code === 'ECONNABORTED') {
+//             return new ServiceError(ep, ErrorType.Timeout);
+//         }
 
-        return new ServiceError(ep, ErrorType.BadInput, data.message);
-    } else if (err.request) {
-        if (err.code === 'ECONNABORTED') {
-            return new ServiceError(ep, ErrorType.Timeout);
-        }
+//         return new ServiceError(ep, ErrorType.Unavailable);
+//     }
 
-        return new ServiceError(ep, ErrorType.Unavailable);
-    }
-
-    return new ServiceError(ep, ErrorType.Unknown, err.message);
-};
+//     return new ServiceError(ep, ErrorType.Unknown, err.message);
+// };

@@ -16,7 +16,7 @@ const MovieDetailsScreen = (props: Props) => {
                     className="details__head"
                     style={{
                         backgroundImage: imageHandler(
-                            props.movieDetails.posterPath
+                            props.movieDetails.backdropPath
                         ),
                     }}>
                     <div className="column-left">

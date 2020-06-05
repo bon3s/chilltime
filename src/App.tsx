@@ -8,6 +8,8 @@ import { addMovies, addGenres, setPage } from './redux/moviesActions';
 import AppState from './redux/AppState';
 import { connect } from 'react-redux';
 import { setError } from './redux/errorActions';
+import Axios from 'axios';
+
 interface Props extends RouteComponentProps {
     page: number;
     error: boolean;
@@ -15,7 +17,10 @@ interface Props extends RouteComponentProps {
 
 class App extends Component<Props> {
     componentDidMount() {
-        if (!this.props.error) {
+        if (this.props.error) {
+            store.dispatch(setError());
+            this.props.history.push('/');
+        } else {
             service.getMovieGenres().then((res) => {
                 store.dispatch(addGenres(res.data));
             });
@@ -24,9 +29,16 @@ class App extends Component<Props> {
                 store.dispatch(setPage(this.props.page + 1));
                 store.dispatch(addMovies(res.data));
             });
-        } else {
-            store.dispatch(setError());
-            this.props.history.push('/');
+            Axios.interceptors.response.use(
+                function (response) {
+                    console.log('interceptor', response);
+                    return response;
+                },
+                function (error) {
+                    console.log('interceptorErr', Promise.resolve(error));
+                    return Promise.reject(error);
+                }
+            );
         }
     }
 

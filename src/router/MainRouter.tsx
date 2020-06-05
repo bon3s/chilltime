@@ -1,9 +1,8 @@
 import React from 'react';
-import { Switch, Route, RouterProps } from 'react-router';
+import { Switch, Route, RouterProps, Redirect } from 'react-router';
 import HomeContainer from '../containers/HomeContainer';
 import { connect } from 'react-redux';
 import AppState from '../redux/AppState';
-import Error404Container from '../containers/ErrorContainer';
 import { DetailsType } from '../types/DetailsType';
 import MovieDetailsContainer from '../containers/MovieDetailsContainer';
 import { MovieType } from '../types/MovieType';
@@ -24,7 +23,7 @@ const Router = (props: Props) => {
                 component={MovieDetailsContainer}
             />
             />
-            <Route path="/404" component={Error404Container} />
+            <Redirect to="/" />
         </Switch>
     );
 };
