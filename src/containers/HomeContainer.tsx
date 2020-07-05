@@ -38,7 +38,11 @@ const HomeContainer = (props: Props) => {
                     const movieFromGenres = genres.find(
                         (genre: GenreType) => genre.id === movieGenre
                     );
-                    return movieFromGenres ? movieFromGenres.name : movieGenre;
+                    return movieFromGenres
+                        ? movieFromGenres.name === 'Science Fiction'
+                            ? 'SciFi'
+                            : movieFromGenres.name
+                        : movieGenre;
                 }),
             };
         });
