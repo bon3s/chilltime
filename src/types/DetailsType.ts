@@ -1,7 +1,7 @@
 import { GenreType } from './GenreType';
 
 export interface DetailsType {
-    id: number;
+    id: number | null;
     imdb: string | null;
     title: string;
     language: string;

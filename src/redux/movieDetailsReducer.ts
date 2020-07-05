@@ -7,7 +7,7 @@ export interface State {
 }
 const initState = {
     movieDetails: {
-        id: 0,
+        id: null,
         imdb: '',
         title: '',
         language: '',

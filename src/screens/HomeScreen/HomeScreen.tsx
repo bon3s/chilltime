@@ -37,11 +37,7 @@ const HomeScreen = (props: Props) => {
                         {props.movies !== undefined ? (
                             props.movies.map((item: MovieType) => {
                                 return (
-                                    <Col
-                                        key={item.id || 22}
-                                        lg={3}
-                                        md={6}
-                                        xs={12}>
+                                    <Col key={item.id} lg={3} md={6} xs={12}>
                                         <MovieItem key={item.id} movie={item} />
                                     </Col>
                                 );

@@ -99,11 +99,7 @@ class REST implements Service {
                 .request(req)
                 .then((resp) => resolve(resp))
                 .catch((err: AxiosError) => {
-                    if (err.response) {
-                        if (err.response.status === 404) {
-                            window.location.href = window.location.origin;
-                        }
-                    }
+                    store.dispatch(setError());
                 });
         });
     }
@@ -114,31 +110,26 @@ export default REST;
 // const newServiceError = (ep: string, err: AxiosError): ServiceError => {
 //     if (err.response) {
 //         const { data, status } = err.response;
+
 //         if (status === 401) {
-//             // history.push('/');
-//             // return new ServiceError(
-//             //     ep,
-//             //     ErrorType.Unauthenticated,
-//             //     'Please add your MovieAPI key.'
-//             // );
+//             return new ServiceError(ep, ErrorType.Unauthenticated);
 //         }
 
-//         // if (status === 403) {
-//         //     return new ServiceError(ep, ErrorType.PermissionDenied);
-//         // }
+//         if (status === 403) {
+//             return new ServiceError(ep, ErrorType.PermissionDenied);
+//         }
 
 //         if (status === 404) {
-//             // history.push('/');
-//             // return new ServiceError(ep, ErrorType.NotFound, 'No movie found.');
+//             return new ServiceError(ep, ErrorType.NotFound);
 //         }
 
-//         // if (status === 408 || err.code === 'ECONNABORTED') {
-//         //     return new ServiceError(ep, ErrorType.Timeout);
-//         // }
+//         if (status === 408 || err.code === 'ECONNABORTED') {
+//             return new ServiceError(ep, ErrorType.Timeout);
+//         }
 
-//         // if (status >= 500) {
-//         //     return new ServiceError(ep, ErrorType.Internal, data.message);
-//         // }
+//         if (status >= 500) {
+//             return new ServiceError(ep, ErrorType.Internal, data.message);
+//         }
 
 //         return new ServiceError(ep, ErrorType.BadInput, data.message);
 //     } else if (err.request) {

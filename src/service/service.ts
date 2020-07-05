@@ -4,6 +4,8 @@ import config from '../config';
 import client from '../http/client';
 import { Genre } from './Genre';
 import { MovieDetails } from './MovieDetails';
+import { store } from '../store';
+import LoadingMiddleware from '../middlewares/loadingMiddleware';
 
 export enum ErrorType {
     Unknown,
@@ -72,6 +74,7 @@ export class MovieGenresReply {
 }
 
 const url = new URL(config.BACKEND_SCHEME, config.BACKEND);
-const service: Service = new REST(client, url);
+const rest: Service = new REST(client, url);
+const service: Service = new LoadingMiddleware(rest, store.dispatch);
 
 export default service;

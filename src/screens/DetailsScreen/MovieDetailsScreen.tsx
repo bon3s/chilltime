@@ -9,16 +9,18 @@ interface Props {
 }
 
 const MovieDetailsScreen = (props: Props) => {
+    console.log(imageHandler(props.movieDetails.backdropPath, 1280));
     return (
         <MovieDetailsScreenStyles>
-            <div className="container">
-                <div
-                    className="details__head"
-                    style={{
-                        backgroundImage: imageHandler(
-                            props.movieDetails.backdropPath
-                        ),
-                    }}>
+            <div
+                className="details__head"
+                style={{
+                    backgroundImage: `url(${imageHandler(
+                        props.movieDetails.backdropPath,
+                        1280
+                    )})`,
+                }}>
+                <div className="container">
                     <div className="column-left">
                         {props.movieDetails.title}
                         <div className="column-left__poster">
@@ -26,9 +28,7 @@ const MovieDetailsScreen = (props: Props) => {
                                 src={imageHandler(
                                     props.movieDetails.posterPath
                                 )}
-                                alt={
-                                    props.movieDetails.title + '\n movie poster'
-                                }
+                                alt={`${props.movieDetails.title} movie poster`}
                                 className="poster__image"
                             />
                         </div>
@@ -51,8 +51,8 @@ const MovieDetailsScreen = (props: Props) => {
                     </div>
                     <div className="column-right"></div>
                 </div>
-                <div className="details__body"></div>
             </div>
+            <div className="details__body"></div>
         </MovieDetailsScreenStyles>
     );
 };

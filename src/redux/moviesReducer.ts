@@ -21,7 +21,10 @@ const moviesReducer = (state: State = initState, action: AnyAction) => {
             return { ...state, page: action.value };
 
         case ADD_MOVIES:
-            return { ...state, movies: [...state.movies, ...action.value] };
+            return {
+                ...state,
+                movies: Array.from(new Set([...state.movies, ...action.value])),
+            };
 
         case ADD_GENRES:
             return { ...state, genres: action.value };
