@@ -21,7 +21,7 @@ const LoadingModal = (props: Props) => {
     return (
         <div className="modalWrapper">
             <LoadingModalStyles
-                show={false}
+                show={loading}
                 backdrop="static"
                 keyboard={false}
                 animation={false}
