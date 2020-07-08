@@ -5,11 +5,15 @@ import OpenSansRegularWoff from '../../assets/fonts/opensans-regular-webfont.wof
 import OpenSansRegularWoff2 from '../../assets/fonts/opensans-regular-webfont.woff2';
 import OpenSansBoldWoff from '../../assets/fonts/opensans-bold-webfont.woff';
 import OpenSansBoldWoff2 from '../../assets/fonts/opensans-bold-webfont.woff2';
+import { theme } from './theme';
 
 export default createGlobalStyle`
+@import '../node_modules/rfs/scss';
+
 body{
-    background: linear-gradient(to right, rgba(3,67,120,1) 0%,rgba(35,125,199,1) 100%); 
+    background:${theme.colors.white};
 }
+
 @font-face {
     font-family: 'open_sansbold';
     src: url(${OpenSansBoldWoff2}) format('woff2'),

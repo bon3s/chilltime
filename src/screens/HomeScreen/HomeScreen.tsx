@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouterProps } from 'react-router';
-import ScreenWrapper from '../ScreenWrapper';
+import ScreenWrapper from '../ScreenWrapper/ScreenWrapper';
 import { HomeScreenStyles } from './styles/HomeScreenStyles';
 import { Container, Row, Col } from 'react-bootstrap';
 import MovieItem from '../../components/MovieItem/MovieItem';
@@ -37,7 +37,12 @@ const HomeScreen = (props: Props) => {
                         {props.movies !== undefined ? (
                             props.movies.map((item: MovieType) => {
                                 return (
-                                    <Col key={item.id} lg={3} md={6} xs={12}>
+                                    <Col
+                                        key={item.id}
+                                        xl={3}
+                                        lg={4}
+                                        md={6}
+                                        sm={12}>
                                         <MovieItem key={item.id} movie={item} />
                                     </Col>
                                 );

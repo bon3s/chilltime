@@ -40,7 +40,7 @@ const MovieItemStyles = styled.div`
                 }
                 p {
                     font-family: ${theme.fonts.fontRegular};
-                    font-size: 12px;
+                    font-size: @include responsive-font-size(12px);
                     color: ${theme.colors.white};
                     text-align: center;
                     margin: 5px 0 0;

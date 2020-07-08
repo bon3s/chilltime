@@ -11,7 +11,7 @@ import { setError } from './redux/errorActions';
 import { MovieType } from './types/MovieType';
 import LoadingModal from './components/LoadingModal/LoadingModal';
 import { State as LoadingState } from './redux/loadingReducer';
-
+import GlobalFonts from './components/Theme/global';
 interface Props extends RouteComponentProps {
     page: number;
     error: boolean;
@@ -33,6 +33,7 @@ const App = (props: Props) => {
 
     return (
         <main>
+            <GlobalFonts />
             <LoadingModal />
             <Router history={props.history} />
         </main>
