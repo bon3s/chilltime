@@ -8,7 +8,6 @@ import OpenSansBoldWoff2 from '../../assets/fonts/opensans-bold-webfont.woff2';
 import { theme } from './theme';
 
 export default createGlobalStyle`
-@import '../node_modules/rfs/scss';
 
 body{
     background:${theme.colors.white};
