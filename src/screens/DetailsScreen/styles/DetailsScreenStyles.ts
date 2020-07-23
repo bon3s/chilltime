@@ -17,6 +17,7 @@ export const MovieDetailsScreenStyles = styled.div`
                 -webkit-backface-visibility: hidden;
                 position: relative;
                 overflow: visible;
+                z-index: 555;
                 .head__rise {
                     position: absolute;
                     top: 25%;
@@ -85,6 +86,18 @@ export const MovieDetailsScreenStyles = styled.div`
                                     font-size: 26px;
                                     margin-top: 15px;
                                     position: relative;
+                                }
+                            }
+                            &__rating {
+                                display: flex;
+                                align-items: center;
+
+                                p {
+                                    padding: 0;
+                                    color: ${theme.colors.white};
+                                    font-family: ${theme.fonts.fontLight};
+                                    font-size: 16px;
+                                    margin: 0 0 0 15px;
                                 }
                             }
                         }

@@ -37,7 +37,16 @@ const MovieDetailsContainer = (props: Props) => {
         }
     });
 
-    return <MovieDetailsScreen movieDetails={props.movieDetails} />;
+    const handleStarRating = (newRating: number) => {
+        console.log(newRating);
+    };
+
+    return (
+        <MovieDetailsScreen
+            handleStarRating={(newRating: number) => handleStarRating}
+            movieDetails={props.movieDetails}
+        />
+    );
 };
 
 const mapStateToProps = (state: AppState) => ({

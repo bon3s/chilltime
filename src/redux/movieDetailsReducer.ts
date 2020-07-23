@@ -15,6 +15,7 @@ const initState = {
         backdropPath: '',
         posterPath: '',
         voteAvg: 0,
+        voteCount: 0,
         overview: '',
         tagline: '',
         genres: [{ id: 0, name: '' }],

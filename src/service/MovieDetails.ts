@@ -46,6 +46,10 @@ export class MovieDetails {
             throw new Error('vote_number should be a number');
         }
 
+        if (typeof maybe.vote_count !== 'number') {
+            throw new Error('vote_count should be a number');
+        }
+
         if (typeof maybe.tagline !== 'string' && maybe.tagline !== null) {
             throw new Error('tagline should be a string');
         }
@@ -63,6 +67,7 @@ export class MovieDetails {
             maybe.backdrop_path,
             maybe.poster_path,
             maybe.vote_average,
+            maybe.vote_count,
             maybe.overview,
             maybe.tagline,
             maybe.genres
@@ -80,6 +85,7 @@ export class MovieDetails {
     public overview: string;
     public tagline: string;
     public genres: number[];
+    public voteCount: number;
 
     constructor(
         id: number,
@@ -90,6 +96,7 @@ export class MovieDetails {
         backdropPath: string,
         posterPath: string,
         voteAvg: number,
+        voteCount: number,
         overview: string,
         tagline: string,
         genres: number[]
@@ -102,6 +109,7 @@ export class MovieDetails {
         this.backdropPath = backdropPath;
         this.posterPath = posterPath;
         this.voteAvg = voteAvg;
+        this.voteCount = voteCount;
         this.overview = overview;
         this.tagline = tagline;
         this.genres = genres;

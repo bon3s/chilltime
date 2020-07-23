@@ -5,11 +5,18 @@ import { DetailsType } from '../../types/DetailsType';
 import { GenreType } from '../../types/GenreType';
 import { Row, Col } from 'react-bootstrap';
 import moment from 'moment';
+import StarRatingComponent from 'react-star-rating-component';
+
 interface Props {
     movieDetails: DetailsType;
+    handleStarRating: (newRating: number) => void;
 }
 
 const MovieDetailsScreen = (props: Props) => {
+    // const handleStarClick = (nextValue: number) => {
+    //     console.log(nextValue);
+    // };
+
     return (
         <MovieDetailsScreenStyles>
             <div
@@ -67,6 +74,22 @@ const MovieDetailsScreen = (props: Props) => {
                                             )
                                         </h1>
                                         <h4>{props.movieDetails.tagline}</h4>
+                                        <div className="movie__rating">
+                                            <StarRatingComponent
+                                                name="movieRating"
+                                                starCount={5}
+                                                editing={true}
+                                                value={
+                                                    props.movieDetails.voteAvg /
+                                                    2
+                                                }
+                                                onStarClick={(val: number) =>
+                                                    console.log(val)
+                                                }
+                                            />
+
+                                            <p>{`${props.movieDetails.voteAvg}/10`}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </Col>

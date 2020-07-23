@@ -12,11 +12,15 @@ import { MovieType } from './types/MovieType';
 import LoadingModal from './components/LoadingModal/LoadingModal';
 import { State as LoadingState } from './redux/loadingReducer';
 import GlobalFonts from './components/Theme/global';
+import { setSession } from './redux/sessionActions';
+import { Session } from './types/SessionIDType';
+import moment, { isMoment } from 'moment';
 interface Props extends RouteComponentProps {
     page: number;
     error: boolean;
     movies: MovieType[];
     loading: LoadingState;
+    session: Session;
 }
 
 const App = (props: Props) => {
@@ -28,6 +32,12 @@ const App = (props: Props) => {
             service.getMovieGenres().then((res) => {
                 store.dispatch(addGenres(res.data));
             });
+
+            console.log(
+                moment('2020-08-27 16:26:40', 'YYYY-MM-DDTHH:mm:ss').isBefore(
+                    moment()
+                )
+            );
         }
     });
 
@@ -45,6 +55,7 @@ const mapStateToProps = (state: AppState) => {
         page: state.movies.page,
         error: state.error.errorEvent,
         movies: state.movies.movies,
+        session: state.session.session,
     };
 };
 

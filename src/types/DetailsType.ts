@@ -12,4 +12,5 @@ export interface DetailsType {
     overview: string | null;
     tagline: string | null;
     genres: GenreType[];
+    voteCount: number;
 }

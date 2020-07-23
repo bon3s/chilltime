@@ -16,7 +16,7 @@ export class Genre {
     }
 
     public id: number;
-    name: string;
+    public name: string;
 
     constructor(id: number, name: string) {
         this.id = id;

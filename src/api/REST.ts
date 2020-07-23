@@ -6,6 +6,7 @@ import {
     PopularMoviesReply,
     MovieGenresReply,
     MovieDetailsReply,
+    SessionIDReply,
 } from '../service/service';
 import config from '../config';
 import { store } from '../store';
@@ -33,6 +34,10 @@ export class URL {
 
     public genresPath() {
         return this.url + 'genre/movie/list';
+    }
+
+    public sessionIDPath() {
+        return this.url + 'authentication/guest_session/new';
     }
 }
 
@@ -88,6 +93,14 @@ class REST implements Service {
             url: this.url.genresPath() + this.url.apiKeyHandler(),
         });
         return MovieGenresReply.fromJSON(res.data.genres);
+    }
+
+    public async getSessionID(): Promise<SessionIDReply> {
+        const res = await this.request(this.getSessionID, {
+            method: 'GET',
+            url: this.url.sessionIDPath() + this.url.apiKeyHandler(),
+        });
+        return SessionIDReply.fromJSON(res.data);
     }
 
     private request(

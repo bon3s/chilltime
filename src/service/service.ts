@@ -3,6 +3,7 @@ import REST, { URL } from '../api/REST';
 import config from '../config';
 import client from '../http/client';
 import { Genre } from './Genre';
+import { Session } from './Session';
 import { MovieDetails } from './MovieDetails';
 import { store } from '../store';
 import LoadingMiddleware from '../middlewares/loadingMiddleware';
@@ -23,6 +24,7 @@ export interface Service {
     getPopularMovies(page: number): Promise<PopularMoviesReply>;
     getMovieGenres(): Promise<MovieGenresReply>;
     getMovieDetails(id: number): Promise<MovieDetailsReply>;
+    getSessionID(): Promise<SessionIDReply>;
 }
 
 export class PopularMoviesReply {
@@ -70,6 +72,21 @@ export class MovieGenresReply {
     public data: Genre[];
     constructor(genresArray: Genre[]) {
         this.data = genresArray;
+    }
+}
+
+export class SessionIDReply {
+    public static fromJSON(maybe: any): SessionIDReply {
+        if (typeof maybe !== 'object') {
+            throw new Error('SessionIDReply should be an object');
+        }
+        const sessionID: Session = maybe;
+
+        return new SessionIDReply(Session.fromJSON(sessionID));
+    }
+    public data: Session;
+    constructor(sessionID: Session) {
+        this.data = sessionID;
     }
 }
 

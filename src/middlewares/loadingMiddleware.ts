@@ -3,6 +3,7 @@ import {
     PopularMoviesReply,
     MovieDetailsReply,
     MovieGenresReply,
+    SessionIDReply,
 } from '../service/service';
 import { Dispatch } from 'redux';
 import { startLoading, stopLoading } from '../redux/loadingActions';
@@ -35,6 +36,18 @@ class LoadingMiddleware implements Service {
             return result;
         } catch (e) {
             this.dispatch(stopLoading('getMovieDetails'));
+            throw e;
+        }
+    }
+
+    public async getSessionID(): Promise<SessionIDReply> {
+        this.dispatch(startLoading('getSessionID'));
+        try {
+            const result = await this.next.getSessionID();
+            this.dispatch(stopLoading('getSessionID'));
+            return result;
+        } catch (e) {
+            this.dispatch(stopLoading('getSessionID'));
             throw e;
         }
     }
