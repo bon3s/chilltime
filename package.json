@@ -19,7 +19,7 @@
 		"@types/redux-devtools-extension": "^2.13.2",
 		"@types/redux-persist": "^4.3.1",
 		"@types/styled-components": "^5.0.0",
-		"axios": "^0.19.2",
+		"axios": "^0.21.1",
 		"bootstrap": "^4.4.1",
 		"connected-react-router": "^6.8.0",
 		"jquery": "^3.4.1",
